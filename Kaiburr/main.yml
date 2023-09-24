@@ -1,0 +1,108 @@
+swagger: '2.0'
+info:
+  title: Kaiburr API
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Get all data
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Mdata'
+  /{id}:
+    get:
+      summary: Get data by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the data
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Mdata'
+        404:
+          description: Data not found
+  /servers/{name}:
+    get:
+      summary: Get data by name
+      parameters:
+        - name: name
+          in: path
+          description: Name of the data
+          required: true
+          type: string
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Mdata'
+        404:
+          description: Data not found
+  /send:
+    post:
+      summary: Save data
+      parameters:
+        - name: data
+          in: body
+          description: Data to be saved
+          required: true
+          schema:
+            $ref: '#/definitions/Mdata'
+      responses:
+        200:
+          description: Data saved successfully
+  /update/{id}:
+    put:
+      summary: Update data by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the data to update
+          required: true
+          type: integer
+        - name: data
+          in: body
+          description: Updated data
+          required: true
+          schema:
+            $ref: '#/definitions/Mdata'
+      responses:
+        200:
+          description: Data is updated
+        404:
+          description: Data not found
+  /delete/{id}:
+    delete:
+      summary: Delete data by ID
+      parameters:
+        - name: id
+          in: path
+          description: ID of the data to delete
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Data deleted successfully
+        404:
+          description: Data not found
+definitions:
+  Mdata:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      language:
+        type: string
+      framework:
+        type: string
